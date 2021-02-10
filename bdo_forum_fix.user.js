@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         BDO forum FIX
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  try to take over the world!
 // @author       pKajan
 // @updateURL    https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
 // @downloadURL  https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
-// @match        https://www.naeu.playblackdesert.com/en-US/Community?topicType=*
+// @match        https://www.naeu.playblackdesert.com/en-*/Community?topicType=*
 // @grant        GM_addStyle
 // ==/UserScript==
 
