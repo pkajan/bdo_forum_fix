@@ -6,7 +6,7 @@
 // @author       pKajan
 // @updateURL    https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
 // @downloadURL  https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
-// @match        https://www.naeu.playblackdesert.com/en-*/Community?topicType=*
+// @match        https://www.naeu.playblackdesert.com/*-*/Community?topicType=*
 // @grant        GM_addStyle
 // ==/UserScript==
 
