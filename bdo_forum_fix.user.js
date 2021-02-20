@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         BDO forum FIX
 // @namespace    http://tampermonkey.net/
-// @version      0.21
+// @version      0.22
 // @description  try to take over the world!
 // @author       pKajan
 // @updateURL    https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
 // @downloadURL  https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
 // @match        https://www.naeu.playblackdesert.com/*-*/Community?topicType=*
+// @match        https://www.naeu.playblackdesert.com/*-*/Community/Detail?topicNo=*&topicType=*
 // @grant        GM_addStyle
 // ==/UserScript==
 
@@ -23,5 +24,7 @@ for (var i = 0; i < document.getElementsByClassName("ctitle").length; i++) {
 var regex = /<span class=\"ctitle\">.*<\/span>/ig;
 res = res.replaceAll(regex, "<span class=\"ctitle\"></span>")
 document.getElementsByTagName('html')[0].innerHTML = res;
+
+document.title = document.getElementsByClassName("title")[0].innerText;
 
 console.log("FIXED");
