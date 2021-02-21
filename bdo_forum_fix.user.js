@@ -35,4 +35,9 @@ if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Commun
     document.getElementsByTagName('html')[0].innerHTML = res;
 
     console.log("TOPIC LIST FIXED");
+    
+        
+    /* TOPIC TITLE */
+    document.title = document.getElementsByClassName("title")[0].innerText;
+    console.log("TOPIC TITLE FIXED");
 }
