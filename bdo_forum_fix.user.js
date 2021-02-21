@@ -1,15 +1,23 @@
 // ==UserScript==
 // @name         BDO forum FIX
 // @namespace    http://tampermonkey.net/
-// @version      0.26
+// @version      0.27
 // @description  try to take over the world!
 // @author       pKajan
 // @updateURL    https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
 // @downloadURL  https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
 // @match        https://www.naeu.playblackdesert.com/*-*/Community?topicType=*
 // @match        https://www.naeu.playblackdesert.com/*-*/Community/Detail?topicNo=*&topicType=*
+// @match        https://www.naeu.playblackdesert.com/*-*/Community?Page=1&topicType=26&returnUrl=&orderBy=12&tagType=-1&searchType=title&searchText=
 // @grant        GM_addStyle
 // ==/UserScript==
+
+function replaceQueryParam(param, newval, search) {
+    var regex = new RegExp("([?;&])" + param + "[^&;]*[;&]?");
+    var query = search.replace(regex, "$1").replace(/&$/, '');
+
+    return (query.length > 2 ? query + "&" : "?") + (newval ? param + "=" + newval : '');
+}
 
 if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Community\/Detail\?topicNo=.*&topicType=.*/)){
     /* TOPIC TITLE */
@@ -18,8 +26,16 @@ if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Commun
     console.log("TOPIC TITLE FIXED");
 }
 if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Community\?topicType=.*/)){
-    /* TOPIC LIST */
     var pagecode = document.getElementsByTagName('html')[0].innerHTML;
+
+    /* TOPIC SORT */
+    var pageURL = window.location.protocol + '//' + window.location.host + window.location.pathname;
+    pagecode = pagecode.replace("a href=\"javascript:void(0)\" class=\"item js-orderby \" data-orderby=\"12\"","a href=\""+pageURL+ replaceQueryParam('orderBy', 12, window.location.search)+"\" class=\"item js-orderby active\" data-orderby=\"12\"")
+    pagecode = pagecode.replace("a href=\"javascript:void(0)\" class=\"item js-orderby \" data-orderby=\"7\"","a href=\""+pageURL+ replaceQueryParam('orderBy', 7, window.location.search)+"\" class=\"item js-orderby active\" data-orderby=\"7\"")
+    pagecode = pagecode.replace("a href=\"javascript:void(0)\" class=\"item js-orderby \" data-orderby=\"10\"","a href=\""+pageURL+ replaceQueryParam('orderBy', 10, window.location.search)+"\" class=\"item js-orderby active\" data-orderby=\"10\"")
+    pagecode = pagecode.replace("a href=\"javascript:void(0)\" class=\"item js-orderby \" data-orderby=\"11\"","a href=\""+pageURL+ replaceQueryParam('orderBy', 11, window.location.search)+"\" class=\"item js-orderby active\" data-orderby=\"11\"");
+
+    /* TOPIC LIST */
     var res = pagecode.replaceAll("<div onclick=\"location.href='/Community/Detail?topicNo=", "<div class=\"left_a\"><a class=\"customFIXCSS\"style=\"font-size: 15px;\" href=\"/Community/Detail?topicNo=")
     .replaceAll("'\" class=\"left_a\">", "\"> ***LINK*** <\a>");
     res = res.replaceAll("<span class=\"label_best\">BEST</span>", "<span class=\"label_best\">B</span>")
@@ -34,7 +50,6 @@ if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Commun
     document.getElementsByTagName('html')[0].innerHTML = res;
 
     console.log("TOPIC LIST FIXED");
-
 
     /* TOPIC TITLE */
     document.title = document.getElementsByClassName("title")[0].innerText;
