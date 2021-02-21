@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BDO forum FIX
 // @namespace    http://tampermonkey.net/
-// @version      0.25
+// @version      0.26
 // @description  try to take over the world!
 // @author       pKajan
 // @updateURL    https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
@@ -10,7 +10,6 @@
 // @match        https://www.naeu.playblackdesert.com/*-*/Community/Detail?topicNo=*&topicType=*
 // @grant        GM_addStyle
 // ==/UserScript==
-
 
 if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Community\/Detail\?topicNo=.*&topicType=.*/)){
     /* TOPIC TITLE */
@@ -21,7 +20,7 @@ if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Commun
 if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Community\?topicType=.*/)){
     /* TOPIC LIST */
     var pagecode = document.getElementsByTagName('html')[0].innerHTML;
-    var res = pagecode.replaceAll("<div onclick=\"location.href='/Community/Detail?topicNo=", "<div class=\"left_a\"><a style=\"font-size: 15px;\" href=\"/Community/Detail?topicNo=")
+    var res = pagecode.replaceAll("<div onclick=\"location.href='/Community/Detail?topicNo=", "<div class=\"left_a\"><a class=\"customFIXCSS\"style=\"font-size: 15px;\" href=\"/Community/Detail?topicNo=")
     .replaceAll("'\" class=\"left_a\">", "\"> ***LINK*** <\a>");
     res = res.replaceAll("<span class=\"label_best\">BEST</span>", "<span class=\"label_best\">B</span>")
     for (var i = 0; i < document.getElementsByClassName("ctitle").length; i++) {
@@ -35,9 +34,11 @@ if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Commun
     document.getElementsByTagName('html')[0].innerHTML = res;
 
     console.log("TOPIC LIST FIXED");
-    
-        
+
+
     /* TOPIC TITLE */
     document.title = document.getElementsByClassName("title")[0].innerText;
     console.log("TOPIC TITLE FIXED");
 }
+
+document.getElementsByTagName('html')[0].innerHTML = document.getElementsByTagName('html')[0].innerHTML + "<style>a:visited{color:gray}</style>";
