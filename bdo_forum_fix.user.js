@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BDO forum FIX
 // @namespace    http://tampermonkey.net/
-// @version      0.28
+// @version      0.29
 // @description  try to take over the world!
 // @author       pKajan
 // @updateURL    https://github.com/pkajan/YT-bdo_forum_fix/raw/master/bdo_forum_fix.user.js
@@ -9,6 +9,7 @@
 // @match        https://www.naeu.playblackdesert.com/*-*/Community?topicType=*
 // @match        https://www.naeu.playblackdesert.com/*-*/Community/Detail?topicNo=*&topicType=*
 // @match        https://www.naeu.playblackdesert.com/*-*/Community?*&topicType=*
+// @exclude      https://www.naeu.playblackdesert.com/*-*/Community?topicNo=*
 // @grant        GM_addStyle
 // ==/UserScript==
 
@@ -24,6 +25,7 @@ if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Commun
     document.title = document.getElementsByClassName("title")[0].innerText;
 
     console.log("TOPIC TITLE FIXED");
+    return 0;
 }
 if(location.href.match(/https:\/\/www\.naeu\.playblackdesert\.com\/.*-.*\/Community\?.*topicType=.*/)){
     var pagecode = document.getElementsByTagName('html')[0].innerHTML;
